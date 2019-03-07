@@ -3,7 +3,7 @@ import json
 import os
 from selenium import webdriver
 from datetime import *
-from urllib2 import urlopen
+from urllib.request import urlopen
 
 # Set up the driver to open up da browser
 driverPath = os.path.expanduser('PUT PATH TO CHROME DRIVER HERE')
@@ -34,7 +34,7 @@ def get_data_with_min_date(url):
 
 # Generates backdoor link
 def generate_backdoor_link(products_list, size, name):
-    print 'Running backdoor link generator...'
+    print ('Running backdoor link generator...')
 
     for i in range(0, len(products_list)):
 
@@ -43,22 +43,22 @@ def generate_backdoor_link(products_list, size, name):
 
         if name in product_title:
 
-            print ' Keyword found!'
-            print ' Searching variants for size...'
+            print (' Keyword found!')
+            print (' Searching variants for size...')
             product_variant = product['variants']
 
             for i in range(0, len(product_variant)):
                 if float(product_variant[i]['option2']) == size:
                     if product_variant[i]['available'] == True:
-                        print ' Selected size: ' + str(size) + ' is available'
-                        print ' ID: ' + str(product['id']) + ' | ' + product['title'] + ' | ' + product['vendor'] + ' | ' + product['product_type']
-                        print ' Creating backdoor link keyword: ' + name
+                        print (' Selected size: ' + str(size) + ' is available')
+                        print (' ID: ' + str(product['id']) + ' | ' + product['title'] + ' | ' + product['vendor'] + ' | ' + product['product_type'])
+                        print (' Creating backdoor link keyword: ' + name)
                         backdoor_link = base_backdoor_url + str(product_variant[i]['id']) + ':1\n'
-                        print ' Opening backdoor link...'
+                        print (' Opening backdoor link...')
                         driver.get(backdoor_link)
                         ##driver.switch_to_default_content()
                     else:
-                        print ' Not available'
+                        print (' Not available')
 
 # Ok so this took me like 15 mins to make so.. ya
 products = get_data_with_min_date(base_url + min_date)
